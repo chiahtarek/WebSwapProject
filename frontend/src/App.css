@@ -1,0 +1,210 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f8;
+    color: #1f2937;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+.usuarios-page {
+    min-height: 100vh;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.page-heading h1 {
+    margin: 5px 0;
+    font-size: 36px;
+}
+
+.page-heading p {
+    margin: 0;
+    color: #6b7280;
+}
+
+.eyebrow {
+    font-size: 12px;
+    font-weight: bold;
+    color: #6b7280;
+    letter-spacing: 1px;
+}
+
+.usuarios-toolbar {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.search-group {
+    margin-bottom: 24px;
+}
+
+.search-group label,
+.usuario-form > label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.search-row {
+    display: flex;
+    gap: 10px;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+input {
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #2563eb;
+}
+
+.primary-button,
+.secondary-button,
+.cancel-button,
+.icon-button {
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 10px 16px;
+}
+
+.primary-button {
+    background: #2563eb;
+    color: white;
+}
+
+.secondary-button {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+.cancel-button {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.usuarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+}
+
+.usuario-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.usuario-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2563eb;
+    color: white;
+    font-weight: bold;
+}
+
+.usuario-info {
+    flex: 1;
+}
+
+.usuario-info h2 {
+    font-size: 18px;
+    margin: 0 0 5px;
+}
+
+.usuario-info p {
+    margin: 0 0 5px;
+    color: #6b7280;
+}
+
+.usuario-info span {
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+.card-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.icon-button {
+    padding: 8px;
+    background: #e5e7eb;
+}
+
+.icon-button.danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.error-message {
+    padding: 12px;
+    border-radius: 8px;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.empty-state {
+    background: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+@media (max-width: 700px) {
+    .usuarios-page {
+        padding: 20px;
+    }
+
+    .page-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .search-row,
+    .form-row {
+        flex-direction: column;
+    }
+
+    input,
+    button {
+        width: 100%;
+    }
+}
