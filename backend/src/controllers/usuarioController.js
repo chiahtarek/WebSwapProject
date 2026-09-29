@@ -57,7 +57,7 @@ const buscarUsuarioPorId = async (req, res) => {
 // POST /usuarios
 const criarUsuario = async (req, res) => {
     try {
-        const { nome, email, senha, foto } = req.body;
+        const { nome, email, senha, foto} = req.body;
 
         if (!nome?.trim() || !email?.trim() || !senha) {
             return res.status(400).json({
