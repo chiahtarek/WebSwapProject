@@ -1,7 +1,7 @@
-const {DataTypes, Model} = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
 const { sequelize } = require('../instances/mysql');
 
-class Usuario extends Model {}
+class Usuario extends Model { }
 
 Usuario.init({
     id: {
@@ -26,19 +26,32 @@ Usuario.init({
         type: DataTypes.TEXT('long'),
         allowNull: true,
     },
+    emailVerificado: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
+    },
+    tokenVerificacao: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    tokenVerificacaoExpira: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
 }, {
     sequelize,
     modelName: 'Usuario',
     tableName: 'usuarios',
-     timestamps: true,
-        defaultScope: {
-            attributes: { exclude: ['senha'] }
-        },
-        scopes: {
-            comSenha: {
-                attributes: { include: ['senha'] }
-            }
+    timestamps: true,
+    defaultScope: {
+        attributes: { exclude: ['senha'] }
+    },
+    scopes: {
+        comSenha: {
+            attributes: { include: ['senha'] }
         }
+    }
 });
 
 module.exports = Usuario;

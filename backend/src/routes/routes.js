@@ -12,6 +12,6 @@ router.get('/mensagem', (req, res) => {
 
 router.use('/usuarios', usuarioRoutes);
 
-router.use('/login', authRoutes);
+router.use('/auth', authRoutes);
 
 module.exports = router;

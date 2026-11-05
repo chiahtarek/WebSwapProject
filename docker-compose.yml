@@ -1,0 +1,141 @@
+services:
+
+  # ==========================================
+  # 1. BACKEND - NODE.JS + EXPRESS
+  # ==========================================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    container_name: webproject_backend
+    restart: unless-stopped
+
+    ports:
+      - "3000:3000"
+
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+    environment:
+      PORT: 3000
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: ${MYSQL_DATABASE}
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+      NODE_ENV: development
+      RESEND_API_KEY: ${RESEND_API_KEY}
+
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+    networks:
+      - webproject_network
+
+
+  # ==========================================
+  # 2. FRONTEND - REACT + VITE
+  # ==========================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+    container_name: webproject_frontend
+    restart: unless-stopped
+
+    ports:
+      - "5173:5173"
+
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+    environment:
+      VITE_API_URL: http://localhost:3000
+
+    depends_on:
+      - backend
+
+    networks:
+      - webproject_network
+
+
+  # ==========================================
+  # 3. DATABASE - MYSQL 8.4
+  # ==========================================
+  mysql:
+    image: mysql:8.4
+
+    container_name: webproject_mysql
+    restart: unless-stopped
+
+    ports:
+      - "3307:3306"
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+    healthcheck:
+      test:
+        - CMD
+        - mysqladmin
+        - ping
+        - -h
+        - 127.0.0.1
+        - --silent
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 40s
+
+    networks:
+      - webproject_network
+
+
+  # ==========================================
+  # 4. PHPMYADMIN
+  # ==========================================
+  phpmyadmin:
+    image: phpmyadmin:latest
+
+    container_name: webproject_phpmyadmin
+    restart: unless-stopped
+
+    ports:
+      - "8086:80"
+
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+    networks:
+      - webproject_network
+
+
+# ==========================================
+# PERSISTENT STORAGE
+# ==========================================
+volumes:
+  mysql_data:
+
+
+# ==========================================
+# DOCKER NETWORK
+# ==========================================
+networks:
+  webproject_network:
+    driver: bridge
