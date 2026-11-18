@@ -10,7 +10,7 @@ const enviarEmailVerificacao = async (email, token) => {
         to: email,
         subject: 'Confirme seu email',
         html: `
-            <h2>Bem-vindo!</h2>
+            <h2>Bem-vindo!THIAGO LIXO! AQUI É O TESTE DA API WEB 3</h2>
             <p>Clique no link abaixo para confirmar seu email:</p>
             <a href="${link}">Confirmar meu email</a>
             <p>Este link expira em 30 minutos.</p>

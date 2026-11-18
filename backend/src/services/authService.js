@@ -3,6 +3,9 @@ const jwt = require('jsonwebtoken');
 const { randomBytes, createHash } = require('node:crypto');
 const Usuario = require('../models/Usuario');
 const emailService = require('./emailService');
+require('dotenv').config();
+
+console.log(process.env.MYSQL_DATABASE);
 
 const login = async (email, senha) => {
     const usuario = await Usuario.scope('comSenha').findOne({ where: { email } });
